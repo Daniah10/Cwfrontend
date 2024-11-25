@@ -19,7 +19,7 @@
 
       <button
         v-on:click="props.addToCart(lesson.id)"
-        :disabled="lesson.Spaces === 0"
+        :disabled="lesson.space === 0"
         class="add-button"
       >
         +

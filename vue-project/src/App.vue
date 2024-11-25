@@ -30,11 +30,18 @@ const changeSort= (property, order)=> {
   lessons.value = [...lessons.value]
 }
 
+const buy=(id)=> {
+  const lesson = lessons.value.find((lesson) => lesson.id === id)
+  lesson.space -- 
+  lessons.value = [...lessons.value]
+  changeSort(sortProperty.value, sortOrder.value)
+}
 </script>
 
 <template>
 <SortSearchBar :changeSort="changeSort"/>  
-<LessonCard v-for="lesson in lessons" :key="lesson.id" :lesson="lesson"/>
+<LessonCard v-for="lesson in lessons" :key="lesson.id" :lesson="lesson" :addToCart="buy"/>
+
   
 
   
