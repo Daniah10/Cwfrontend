@@ -2,6 +2,7 @@
 import{ref} from "vue"
 import LessonCard from "./components/LessonCard.vue";
 import SortSearchBar from "./components/SortSearchBar.vue";
+import SiteHeader from "./components/SiteHeader.vue";
 const lessons= ref([])
 const sortProperty= ref("")
 const sortOrder= ref("")
@@ -39,6 +40,7 @@ const buy=(id)=> {
 </script>
 
 <template>
+<SiteHeader siteName="subject store"/>
 <SortSearchBar :changeSort="changeSort"/>  
 <LessonCard v-for="lesson in lessons" :key="lesson.id" :lesson="lesson" :addToCart="buy"/>
 
