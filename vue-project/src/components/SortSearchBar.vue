@@ -1,6 +1,14 @@
 <template>
   <div class="sort-search-bar">
-
+    <div class="search-section">
+      <input
+        type="text"
+        id="search-query"
+        v-model="searchQuery"
+        v-on:input="props.changeSearchQuery(searchQuery)"
+        placeholder="Search lessons..."
+      />
+    </div>
     <div class="sort-section">
       <select id="sort-field" v-model="sortCategory">
         <option disabled value="">Field</option>
@@ -26,15 +34,20 @@
 <script setup>
 import { ref } from 'vue'
 
-defineProps({
+ const props=defineProps({
   changeSort: {
     type: Function,
     required: true,
+  },
+  changeSearchQuery:{
+    required: true,
+    type: Function,
   }
 })
 
 const sortCategory = ref('')
 const sortOrder = ref('')
+const searchQuery = ref('')
 
 </script>
 

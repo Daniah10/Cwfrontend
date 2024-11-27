@@ -6,9 +6,11 @@ import SiteHeader from "./components/SiteHeader.vue";
 import CartDrawar from "./components/CartDrawar.vue";
 const lessons= ref([])
 const cart= ref([])
+const filteredLessons= ref([])
 const sortProperty= ref("")
 const sortOrder= ref("")
 const showDrawer= ref(false)
+const searchQuery= ref("")
 const getLessons= async () => {
   const response= await fetch ("https://applicationbackend-58pp.onrender.com/lessons")
   const data= await response.json()
@@ -33,14 +35,57 @@ const changeSort= (property, order)=> {
     }
   })
 
-  lessons.value = [...lessons.value]
+  filteredLessons.value = [...filteredLessons.value]
+  filteredLessons.value.sort((a, b) => {
+    if (property === 'space' || property === 'price') {
+      return order === 'asc' ? Number(a[property]) - Number(b[property]) : Number(b[property]) - Number(a[property])
+    } else {
+      return order === 'asc' ? a[property].localeCompare(b[property]) : b[property].localeCompare(a[property])
+    }
+  })
+
+  filteredLessons.value = [...filteredLessons.value]
 }
 
+
+const changeSearchQuery = async query => {
+  
+  if (!query) {
+    filteredLessons.value = []
+    searchQuery.value = ''
+    return
+  }
+
+  const response = await fetch(
+   `https://applicationbackend-58pp.onrender.com/search?q=${query}`,
+  )
+  const data = await response.json()
+
+  for (let lesson of cart.value) {
+    const lessonIndex = data.findIndex(item => item.id === lesson.id)
+    if (lessonIndex !== -1) {
+      data[lessonIndex].space -= lesson.space
+    }
+  }
+
+  filteredLessons.value = data
+
+  searchQuery.value = query
+
+  changeSort(sortProperty.value, sortOrder.value)
+}
 const buy=(id)=> {
   const lesson = lessons.value.find((lesson) => lesson.id === id)
   lesson.space -- 
   lessons.value = [...lessons.value]
+
+  const filteredLesson = filteredLessons.value.find((lesson) => lesson.id === id)
+  if(filteredLesson){
+    filteredLesson.space -- 
+    filteredLessons.value = [...filteredLessons.value]
+  }
   changeSort(sortProperty.value, sortOrder.value)
+
 
 const existingItem= cart.value.find(item => item.id === id)
 if(! existingItem){ 
@@ -57,9 +102,15 @@ else{existingItem.space ++}
 }
 const removeCartItem=(id)=>{
   const lesson = lessons.value.find(lesson => lesson.id === id)
+  const filteredLesson = filteredLessons.value.find(lesson => lesson.id === id)
   const cartItem = cart.value.find(item => item.id === id)
 
   lesson.space += cartItem.space
+  if(filteredLesson){
+    filteredLesson.space += cartItem.space
+  }
+lessons.value=[...lessons.value]
+filteredLessons.value=[...filteredLesson.value]
 
   cart.value = cart.value.filter(item => item.id !== id)
 
@@ -138,8 +189,8 @@ const showSnackbar = (message, success) => {
 
 <template>
 <SiteHeader siteName="subject store" @toggleCart="toggleCart" :cartDisabled="cart.length === 0"/>
-<SortSearchBar :changeSort="changeSort"/>  
-<LessonCard v-for="lesson in lessons" :key="lesson.id" :lesson="lesson" :addToCart="buy"/>
+<SortSearchBar :changeSort="changeSort" :changeSearchQuery="changeSearchQuery"/>  
+<LessonCard v-for="lesson in searchQuery? filteredLessons:lessons" :key="lesson.id" :lesson="lesson" :addToCart="buy"/>
 <CartDrawar :isDrawerVisible="showDrawer" :cartItems="cart" :removeCartItem="removeCartItem" :checkout="checkout"/>
   
 
