@@ -71,6 +71,7 @@ const searchQuery = ref('')
 
 .search-section {
   margin-right: 20px;
+  flex: 1;
 }
 
 label {
