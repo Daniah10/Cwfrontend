@@ -11,6 +11,7 @@ const sortProperty= ref("")
 const sortOrder= ref("")
 const showDrawer= ref(false)
 const searchQuery= ref("")
+const cartTotal= ref(0)
 const getLessons= async () => {
   const response= await fetch ("https://applicationbackend-58pp.onrender.com/lessons")
   const data= await response.json()
@@ -78,6 +79,7 @@ const buy=(id)=> {
   const lesson = lessons.value.find((lesson) => lesson.id === id)
   lesson.space -- 
   lessons.value = [...lessons.value]
+  cartTotal.value += lesson.price
 
   const filteredLesson = filteredLessons.value.find((lesson) => lesson.id === id)
   if(filteredLesson){
@@ -99,21 +101,22 @@ if(! existingItem){
 })
 }
 else{existingItem.space ++}
+cart.value=[...cart.value]
 }
 const removeCartItem=(id)=>{
   const lesson = lessons.value.find(lesson => lesson.id === id)
   const filteredLesson = filteredLessons.value.find(lesson => lesson.id === id)
   const cartItem = cart.value.find(item => item.id === id)
-
+  cartTotal.value -= cartItem.space * cartItem.price
   lesson.space += cartItem.space
   if(filteredLesson){
     filteredLesson.space += cartItem.space
   }
 lessons.value=[...lessons.value]
-filteredLessons.value=[...filteredLesson.value]
+filteredLessons.value=[...filteredLessons.value]
 
   cart.value = cart.value.filter(item => item.id !== id)
-
+  cart.value = [...cart.value]
   changeSort(sortProperty.value, sortOrder.value)
   if(cart.value.length === 0)
   toggleCart()
@@ -158,6 +161,7 @@ const checkout= async(name, phone)=> {
     }
   }
   cart.value =[]
+  cartTotal.value= 0
   toggleCart()
   showSnackbar("Your Order has been Placed Successfully!", true)
 }
@@ -191,7 +195,7 @@ const showSnackbar = (message, success) => {
 <SiteHeader siteName="subject store" @toggleCart="toggleCart" :cartDisabled="cart.length === 0"/>
 <SortSearchBar :changeSort="changeSort" :changeSearchQuery="changeSearchQuery"/>  
 <LessonCard v-for="lesson in searchQuery? filteredLessons:lessons" :key="lesson.id" :lesson="lesson" :addToCart="buy"/>
-<CartDrawar :isDrawerVisible="showDrawer" :cartItems="cart" :removeCartItem="removeCartItem" :checkout="checkout"/>
+<CartDrawar :isDrawerVisible="showDrawer" :cartItems="cart" :removeCartItem="removeCartItem" :checkout="checkout" :totalPrice="cartTotal"/>
   
 
   

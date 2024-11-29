@@ -11,7 +11,7 @@
     <div class="checkout-section">
       <div class="checkout-header">
         <h3>Checkout</h3>
-        <h3>Total Price: ${{ totalPrice }}</h3>
+        <h3>Total Price: ${{ props.totalPrice }}</h3>
       </div>
       <label for="customer-name">Name:</label>
       <input type="text" id="customer-name" v-model="customerName" placeholder="Enter your name" />
@@ -45,13 +45,17 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+
+  totalPrice: {
+    type: Number,
+    required: true,
+  }
 })
 const customerName = ref('')
 const customerPhone = ref('')
 const isCustomerNameValid = ref(true)
 const isCustomerPhoneValid = ref(true)
 const isFormValid = ref(false)
-const totalPrice = ref(0)
 
 watch([customerName, customerPhone], () => {
   validateCustomerName()
@@ -69,9 +73,7 @@ const validateCustomerPhone = () => {
   isCustomerPhoneValid.value = phoneRegex.test(customerPhone.value)
 }
 
-watch(props.cartItems, () => {
-  totalPrice.value = props.cartItems.reduce((acc, item) => acc + item.price * item.space, 0)
-})
+
 
 </script>
 
@@ -82,7 +84,7 @@ watch(props.cartItems, () => {
   right: -100%;
   width: 500px;
   height: 100%;
-  background-color: #333;
+  background-color: #D88196;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   transition: right 0.3s ease;
   z-index: 500;
