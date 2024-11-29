@@ -30,9 +30,9 @@ const props = defineProps({
 
 <style scoped>
 .cart-item-card {
-  background-color: #1e1e1e;
+  background-color: #454444;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(45, 43, 43, 0.1);
   overflow: hidden;
   text-align: center;
   padding: 20px;

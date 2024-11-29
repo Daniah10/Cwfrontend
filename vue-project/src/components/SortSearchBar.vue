@@ -54,10 +54,10 @@ const searchQuery = ref('')
 <style scoped>
 .sort-search-bar {
   padding: 20px;
-  background-color: #333;
+  background-color: #a99bf8;
   width: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  color: #ffffff;
+  color: #090909;
   margin-top: 70px;
   display: flex;
   flex-direction: row;
@@ -66,6 +66,10 @@ const searchQuery = ref('')
 }
 
 .sort-section {
+  margin-right: 20px;
+}
+
+.search-section {
   margin-right: 20px;
 }
 

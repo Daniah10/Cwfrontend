@@ -43,7 +43,8 @@ const props = defineProps({
 <style scoped>
 .card {
   position: relative;
-  background-color: #333;
+  background-color: #a99bf8;
+  color: black;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -61,7 +62,6 @@ const props = defineProps({
 h1 {
   margin: 10px 0;
   font-size: 3rem;
-  color: #ffffff;
 }
 
 .content {
@@ -76,7 +76,6 @@ h1 {
 
 .info p {
   margin: 5px 0;
-  color: #ffffff;
   font-size: 1.2rem;
 }
 

@@ -37,8 +37,8 @@ const props = defineProps({
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background: #333;
-  color: #fff;
+  background: #fbfbfb;
+  color: #030303;
   position: fixed;
   top: 0;
   left: 0;
@@ -54,14 +54,14 @@ const props = defineProps({
 }
 
 .site-name {
-  color: #fff;
   font-size: 2rem;
   margin: 0;
   text-decoration: none;
 }
 
 .cart-button {
-  background: #f4f4f7;
+  background: #116DFF;
+  color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;

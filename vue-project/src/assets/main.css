@@ -1,7 +1,7 @@
 @import './base.css';
 
 body {
-  background-color: #1e1e1e;
+  background-color: #FFE2C1;
   display: grid;
 }
 
@@ -19,6 +19,7 @@ body {
   color: #fff;
   text-align: center;
   border-radius: 10px;
+
   padding: 16px;
   position: fixed;
   z-index: 1;
@@ -85,4 +86,4 @@ body {
     bottom: 0;
     opacity: 0;
   }
-}
+} 
