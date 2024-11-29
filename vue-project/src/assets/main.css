@@ -3,6 +3,7 @@
 body {
   background-color: #FFE2C1;
   display: grid;
+  font-family: oswald-medium, oswald, sans-serif;
 }
 
 #app {

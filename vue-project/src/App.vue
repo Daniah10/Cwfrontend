@@ -192,7 +192,7 @@ const showSnackbar = (message, success) => {
 </script>
 
 <template>
-<SiteHeader siteName="subject store" @toggleCart="toggleCart" :cartDisabled="cart.length === 0"/>
+<SiteHeader siteName="MindMarket" @toggleCart="toggleCart" :cartDisabled="cart.length === 0"/>
 <SortSearchBar :changeSort="changeSort" :changeSearchQuery="changeSearchQuery"/>  
 <LessonCard v-for="lesson in searchQuery? filteredLessons:lessons" :key="lesson.id" :lesson="lesson" :addToCart="buy"/>
 <CartDrawar :isDrawerVisible="showDrawer" :cartItems="cart" :removeCartItem="removeCartItem" :checkout="checkout" :totalPrice="cartTotal"/>
